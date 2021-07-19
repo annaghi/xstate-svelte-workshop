@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, tick } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   import Icon from '@iconify/svelte';
   import play from '@iconify/icons-fa-solid/play.js';
@@ -20,11 +20,8 @@
 
   $: ({ duration } = $state.context);
 
-  // TODO There is no focus on first page load (SSR?)
-  async function focus(element) {
-    await tick();
-    element.focus();
-  }
+  let inputEl;
+  onMount(() => setTimeout(() => inputEl.focus(), 0));
 
   const dispatch = createEventDispatcher();
   function handleCancel() {
@@ -39,13 +36,13 @@
   on:submit|preventDefault={send}
 >
   <input
+    bind:this={inputEl}
     type="number"
     min={0}
     step={1}
     placeholder="00s"
     on:change={send}
     title="Duration"
-    use:focus
   />
 
   <div class="actions">
