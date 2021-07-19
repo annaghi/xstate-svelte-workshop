@@ -20,7 +20,7 @@
 
   $: ({ duration } = $state.context);
 
-  let inputEl;
+  let inputEl = null;
   onMount(() => setTimeout(() => inputEl.focus(), 0));
 
   const dispatch = createEventDispatcher();
