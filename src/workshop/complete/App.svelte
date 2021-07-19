@@ -1,4 +1,5 @@
 <script>
+  import { browser } from '$app/env';
   import { useMachine } from '@xstate/svelte';
   import { timerAppMachine } from './timerAppMachine.js';
 
@@ -7,11 +8,12 @@
   import NewTimer from './NewTimer.svelte';
   import Timer from './Timer.svelte';
 
-  // TODO When inspect is on, then page returns with '500: window is not defined'
-  // import { inspect } from '@xstate/inspect';
-  // inspect({
-  //   iframe: false
-  // });
+  import { inspect } from '@xstate/inspect';
+  if (browser) {
+    inspect({
+      iframe: false
+    });
+  }
 
   const { state, send } = useMachine(timerAppMachine, { devTools: true });
 
