@@ -38,7 +38,6 @@
 
 <div class="foreignItem">
   {#if $state.matches('timezonesLoaded') || timezones}
-    <!-- svelte-ignore a11y-no-onchange -->
     <select
       class="foreignCity"
       on:change={(event) =>

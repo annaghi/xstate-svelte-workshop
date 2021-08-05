@@ -20,7 +20,6 @@
   let formattedForeignTime = null;
   $: localTime &&
     foreignTime &&
-    // TODO Why foreignTime is not reactive in here?
     (formattedForeignTime = $state.context.foreignTime.toLocaleTimeString(
       'en-US',
       {
@@ -39,7 +38,6 @@
 
 <div class="foreignItem">
   {#if $state.matches('timezonesLoaded') || timezones}
-    <!-- svelte-ignore a11y-no-onchange -->
     <select
       class="foreignCity"
       on:change={(event) =>
