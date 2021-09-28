@@ -49,7 +49,7 @@ export const timerAppMachine = createMachine({
     ADD: {
       target: '.timer',
       actions: assign((context, event) => {
-        const newTimer = spawn(createTimerMachine(event.duration));
+        const newTimer = spawn(createTimerMachine(event.duration), 'someid');
         const timers = [...context.timers, newTimer];
 
         return {

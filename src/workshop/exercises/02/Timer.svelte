@@ -1,7 +1,7 @@
 <script>
   import Icon from '@iconify/svelte';
-  import play from '@iconify/icons-fa-solid/play.js';
-  import pause from '@iconify/icons-fa-solid/pause.js';
+  import play from '@iconify-icons/fa-solid/play.js';
+  import pause from '@iconify-icons/fa-solid/pause.js';
 
   import ProgressCircle from '$components/ProgressCircle.svelte';
 

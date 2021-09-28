@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
 
   import Icon from '@iconify/svelte';
-  import play from '@iconify/icons-fa-solid/play.js';
+  import play from '@iconify-icons/fa-solid/play.js';
 
   import { useMachine } from '@xstate/svelte';
   import { newTimerMachine } from './newTimerMachine.js';
