@@ -5,10 +5,10 @@
 
   import ProgressCircle from '$components/ProgressCircle.svelte';
 
-  // import { useMachine } from '@xstate/svelte';
+  // import { interpret } from 'xstate';
   // import { timerMachine } from './timerMachine.js';
 
-  const { state, send } = { state: {}, send: () => {} };
+  const timerService = { send: () => {}, subscribe: () => {} };
 
   const { duration, elapsed, interval } = {
     duration: 60,
@@ -19,14 +19,14 @@
 
 <div
   class="timer"
-  data-state={state.value}
+  data-state={$timerService.value}
   style="--duration:{duration}; --elapsed:{elapsed}; --interval:{interval};"
 >
   <header><h1>Exercise 01</h1></header>
   <ProgressCircle />
 
   <div class="display">
-    <div class="label">{state.value}</div>
+    <div class="label">{$timerService.value}</div>
     <div
       class="elapsed"
       on:click={() => {
@@ -37,7 +37,7 @@
     </div>
 
     <div class="controls">
-      {#if state === 'paused'}
+      {#if $timerService === 'paused'}
         <button
           on:click={() => {
             // ...
@@ -48,7 +48,7 @@
   </div>
 
   <div class="actions">
-    {#if state === 'running'}
+    {#if $timerService === 'running'}
       <button
         on:click={() => {
           // ...
@@ -59,7 +59,7 @@
       </button>
     {/if}
 
-    {#if state === 'paused' || state === 'idle'}
+    {#if $timerService === 'paused' || $timerService === 'idle'}
       <button
         on:click={() => {
           // ...
