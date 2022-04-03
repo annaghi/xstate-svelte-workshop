@@ -4,21 +4,23 @@
   import Icon from '@iconify/svelte';
   import play from '@iconify-icons/fa-solid/play.js';
 
-  import { useMachine } from '@xstate/svelte';
+  import { interpret } from 'xstate';
   import { newTimerMachine } from './newTimerMachine.js';
 
   export let timersCount = 0;
   export let onSubmit = null;
 
-  const { state, send } = useMachine(newTimerMachine, {
-    actions: {
-      submit: (context) => {
-        onSubmit(context.duration);
+  const newTimerService = interpret(
+    newTimerMachine.withConfig({
+      actions: {
+        submit: (context) => {
+          onSubmit(context.duration);
+        }
       }
-    }
-  });
+    })
+  ).start();
 
-  $: ({ duration } = $state.context);
+  $: ({ duration } = $newTimerService.context);
 
   let inputEl = null;
   onMount(() => setTimeout(() => inputEl.focus(), 0));
@@ -33,7 +35,7 @@
   class="screen"
   data-screen="new-timer"
   data-testid="new-timer"
-  on:submit|preventDefault={send}
+  on:submit|preventDefault={newTimerService.send}
 >
   <input
     bind:this={inputEl}
@@ -41,7 +43,7 @@
     min={0}
     step={1}
     placeholder="00s"
-    on:change={send}
+    on:change={newTimerService.send}
     title="Duration"
   />
 

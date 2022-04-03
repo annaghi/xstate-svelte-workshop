@@ -2,17 +2,17 @@
   /**
    * @type {import('@sveltejs/kit').Load}
    */
-  export async function load({ page }) {
+  export async function load({ params }) {
     try {
       const readme = await import(
-        `../workshop/exercises/${page.params.exercise}/README.md`
+        `../workshop/exercises/${params.exercise}/README.md`
       );
 
       const exercise =
-        '08' === page.params.exercise
+        '08' === params.exercise
           ? await import('../workshop/exercises/08/App.svelte')
           : await import(
-              `../workshop/exercises/${page.params.exercise}/Timer.svelte`
+              `../workshop/exercises/${params.exercise}/Timer.svelte`
             );
 
       return {

@@ -3,16 +3,16 @@
 
   import mockTimezones from '$db/timezones.json';
 
-  import { useMachine } from '@xstate/svelte';
+  import { interpret } from 'xstate';
   import { foreignClockMachine } from './foreignClockMachine.js';
 
-  const { state, send } = useMachine(foreignClockMachine);
+  const foreignClockService = interpret(foreignClockMachine).start();
 
-  $: ({ timezones, timezone, foreignTime } = $state.context);
+  $: ({ timezones, timezone, foreignTime } = $foreignClockService.context);
 
   export let localTime = null;
   $: localTime &&
-    send({
+    foreignClockService.send({
       type: 'LOCAL.UPDATE',
       time: localTime
     });
@@ -20,28 +20,26 @@
   let formattedForeignTime = null;
   $: localTime &&
     foreignTime &&
-    (formattedForeignTime = $state.context.foreignTime.toLocaleTimeString(
-      'en-US',
-      {
+    (formattedForeignTime =
+      $foreignClockService.context.foreignTime.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
         timeZone: timezone
-      }
-    ));
+      }));
 
   onMount(async () => {
     const data = await Promise.resolve(mockTimezones);
-    send({ type: 'TIMEZONES.LOADED', data });
+    foreignClockService.send({ type: 'TIMEZONES.LOADED', data });
   });
 </script>
 
 <div class="foreignItem">
-  {#if $state.matches('timezonesLoaded') || timezones}
+  {#if $foreignClockService.matches('timezonesLoaded') || timezones}
     <select
       class="foreignCity"
       on:change={(event) =>
-        send({
+        foreignClockService.send({
           type: 'TIMEZONE.CHANGE',
           value: event.target.value
         })}

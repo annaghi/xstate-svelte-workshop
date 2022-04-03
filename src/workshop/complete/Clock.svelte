@@ -1,12 +1,12 @@
 <script>
   import ForeignClock from './ForeignClock.svelte';
 
-  import { useMachine } from '@xstate/svelte';
+  import { interpret } from 'xstate';
   import { clockMachine } from './clockMachine';
 
-  const { state } = useMachine(clockMachine);
+  const clockService = interpret(clockMachine).start();
 
-  $: ({ time } = $state.context);
+  $: ({ time } = $clockService.context);
 </script>
 
 <div class="clock">

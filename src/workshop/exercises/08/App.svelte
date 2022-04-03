@@ -1,5 +1,5 @@
 <script>
-  import { useMachine } from '@xstate/svelte';
+  import { interpret } from 'xstate';
   import { timerAppMachine } from './timerAppMachine.js';
 
   import { Tabs, TabList, Tab, TabPanels, TabPanel } from '$components/tabs';
@@ -7,12 +7,15 @@
   import NewTimer from './NewTimer.svelte';
   import Timer from './Timer.svelte';
 
-  const { state, send } = useMachine(timerAppMachine);
+  const timerAppService = interpret(timerAppMachine).start();
 
-  $: ({ timers, currentTimer } = $state.context);
+  $: ({ timers, currentTimer } = $timerAppService.context);
 </script>
 
-<Tabs dataState={$state.toStrings().join(' ')} initialSelectedIndex={1}>
+<Tabs
+  dataState={$timerAppService.toStrings().join(' ')}
+  initialSelectedIndex={1}
+>
   <TabList>
     <Tab>Clock</Tab>
     <Tab>Timer</Tab>
@@ -23,29 +26,30 @@
     </TabPanel>
 
     <TabPanel>
-      {#if $state.matches('new')}
+      {#if $timerAppService.matches('new')}
         <NewTimer
           timersCount={timers.length}
-          onSubmit={(duration) => send({ type: 'ADD', duration })}
-          on:cancel={() => send('CANCEL')}
+          onSubmit={(duration) =>
+            timerAppService.send({ type: 'ADD', duration })}
+          on:cancel={() => timerAppService.send('CANCEL')}
         />
       {/if}
-      <div class="timers" hidden={!$state.matches('timer')}>
+      <div class="timers" hidden={!$timerAppService.matches('timer')}>
         {#each timers as timer, index (timer.id)}
           <Timer
             timerRef={timer}
             dataActive={index === currentTimer || undefined}
-            on:delete={() => send({ type: 'DELETE', index })}
-            on:add={() => send('CREATE')}
+            on:delete={() => timerAppService.send({ type: 'DELETE', index })}
+            on:add={() => timerAppService.send('CREATE')}
           />
         {/each}
       </div>
-      <div class="dots" hidden={!$state.matches('timer')}>
+      <div class="dots" hidden={!$timerAppService.matches('timer')}>
         {#each timers as timer, index (timer.id)}
           <div
             class="dot"
             data-active={index === currentTimer || undefined}
-            on:click={() => send({ type: 'SWITCH', index })}
+            on:click={() => timerAppService.send({ type: 'SWITCH', index })}
           />
         {/each}
       </div>
