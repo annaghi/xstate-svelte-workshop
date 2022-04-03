@@ -3,7 +3,6 @@
 Welcome to the workshop on modeling state with XState in Svelte applications! While working on these exercises, be sure to check out these resources:
 
 - [XState docs](https://xstate.js.org/docs/)
-- [@xstate/svelte docs](https://xstate.js.org/docs/packages/xstate-svelte/)
 
 Edit the files in `workshop/scratch` folder to practice new lessons and techniques. The `<Scratch>` component will show up to the right.
 
