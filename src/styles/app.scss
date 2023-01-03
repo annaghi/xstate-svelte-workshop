@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
-@import './styles/exercise.scss';
-@import './styles/dots.scss';
-@import './styles/newTimer.scss';
-@import './styles/scratch.scss';
-@import './styles/alarm.scss';
+@import 'exercise';
+@import 'dots';
+@import 'newTimer';
+@import 'scratch';
+@import 'alarm';
 
 *,
 *:before,
@@ -17,8 +17,7 @@
 }
 
 html,
-body,
-#svelte {
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -26,6 +25,9 @@ body,
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 16px;
+
+  background-color: #18191c;
+  color: white;
 }
 
 :root {
@@ -34,11 +36,6 @@ body,
   --color-secondary: #8b9096;
   --color-gray: #373b41;
   --color-dark-gray: #25272a;
-}
-
-#svelte {
-  background-color: #18191c;
-  color: white;
 }
 
 .app {
@@ -133,6 +130,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 input[type='number'] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 [data-screen],

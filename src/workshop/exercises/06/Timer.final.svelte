@@ -6,7 +6,7 @@
   import pause from '@iconify-icons/fa-solid/pause.js';
   import stop from '@iconify-icons/fa-solid/stop.js';
 
-  import ProgressCircle from '$components/ProgressCircle.svelte';
+  import ProgressCircle from '$lib/ProgressCircle.svelte';
 
   import { interpret } from 'xstate';
   import { timerMachine } from './timerMachine.final.js';

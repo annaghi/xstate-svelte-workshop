@@ -3,12 +3,18 @@
   import play from '@iconify-icons/fa-solid/play.js';
   import pause from '@iconify-icons/fa-solid/pause.js';
 
-  import ProgressCircle from '$components/ProgressCircle.svelte';
+  import ProgressCircle from '$lib/ProgressCircle.svelte';
 
   // import { interpret } from 'xstate';
   // import { timerMachine } from './timerMachine.js';
 
-  const timerService = { send: () => {}, subscribe: () => {} };
+  const timerService = {
+    send: () => {},
+    subscribe: () => {
+      let unsubscribe = () => {};
+      return unsubscribe;
+    }
+  };
 
   const { duration, elapsed, interval } = {
     duration: 60,
@@ -19,14 +25,14 @@
 
 <div
   class="timer"
-  data-state={$timerService.value}
+  data-state={$timerService?.value}
   style="--duration:{duration}; --elapsed:{elapsed}; --interval:{interval};"
 >
   <header><h1>Exercise 01</h1></header>
   <ProgressCircle />
 
   <div class="display">
-    <div class="label">{$timerService.value}</div>
+    <div class="label">{$timerService?.value}</div>
     <div
       class="elapsed"
       on:click={() => {

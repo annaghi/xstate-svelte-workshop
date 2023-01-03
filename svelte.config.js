@@ -1,30 +1,26 @@
+import adapter from '@sveltejs/adapter-auto';
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
-import preprocess from 'svelte-preprocess';
-import path from 'path';
-import adapter from '@sveltejs/adapter-vercel';
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', ...mdsvexConfig.extensions],
-
   kit: {
     adapter: adapter(),
-    vite: {
-      resolve: {
-        alias: {
-          $components: path.resolve('./src/components'),
-          $db: path.resolve('./src/db')
-        }
-      }
+    alias: {
+      $workshop: 'src/workshop'
     }
   },
 
-  preprocess: [
-    preprocess({
-      postcss: true
-    }),
-    mdsvex(mdsvexConfig)
-  ]
+  extensions: ['.svelte', ...mdsvexConfig.extensions],
+
+  preprocess: [mdsvex(mdsvexConfig)],
+
+  onwarn: (warning, handler) => {
+    if (warning.code.startsWith('a11y-')) {
+      return;
+    }
+    handler(warning);
+  }
 };
 
 export default config;

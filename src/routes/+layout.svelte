@@ -1,5 +1,5 @@
 <script>
-  import '../app.scss';
+  import '../styles/app.scss';
 </script>
 
 <div class="exercise">

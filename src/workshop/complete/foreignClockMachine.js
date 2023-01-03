@@ -1,6 +1,7 @@
 import { assign, createMachine } from 'xstate';
 
 export const foreignClockMachine = createMachine({
+  predictableActionArguments: true,
   initial: 'loadingTimezones',
   context: {
     timezones: null,

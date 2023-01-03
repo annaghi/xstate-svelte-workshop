@@ -8,13 +8,13 @@ Edit the files in `workshop/scratch` folder to practice new lessons and techniqu
 
 ## Exercises
 
-- [Exercise 00](./00)
-- [Exercise 01](./01)
-- [Exercise 02](./02)
-- [Exercise 03](./03)
-- [Exercise 04](./04)
-- [Exercise 05](./05)
-- [Exercise 06](./06)
-- [Exercise 07](./07)
-- [Exercise 08](./08)
+- [Exercise 00](./exercises/00)
+- [Exercise 01](./exercises/01)
+- [Exercise 02](./exercises/02)
+- [Exercise 03](./exercises/03)
+- [Exercise 04](./exercises/04)
+- [Exercise 05](./exercises/05)
+- [Exercise 06](./exercises/06)
+- [Exercise 07](./exercises/07)
+- [Exercise 08](./exercises/08)
 - [Complete App](./complete)

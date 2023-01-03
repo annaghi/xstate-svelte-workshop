@@ -1,9 +1,9 @@
 <script>
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { interpret } from 'xstate';
   import { timerAppMachine } from './timerAppMachine.js';
 
-  import { Tabs, TabList, Tab, TabPanels, TabPanel } from '$components/tabs';
+  import { Tabs, TabList, Tab, TabPanels, TabPanel } from '$lib/tabs';
   import Clock from './Clock.svelte';
   import NewTimer from './NewTimer.svelte';
   import Timer from './Timer.svelte';

@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  import mockTimezones from '$db/timezones.json';
+  import mockTimezones from '$lib/timezones.json';
 
   import { interpret } from 'xstate';
   import { foreignClockMachine } from './foreignClockMachine.js';

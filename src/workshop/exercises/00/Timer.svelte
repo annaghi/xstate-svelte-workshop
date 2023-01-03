@@ -3,7 +3,7 @@
   import play from '@iconify-icons/fa-solid/play.js';
   import pause from '@iconify-icons/fa-solid/pause.js';
 
-  import ProgressCircle from '$components/ProgressCircle.svelte';
+  import ProgressCircle from '$lib/ProgressCircle.svelte';
 
   // Import the timer machine which is implemented as a custom store:
   // import { ... } from './timerMachine.js';
